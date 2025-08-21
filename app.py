@@ -12,38 +12,23 @@ st.subheader('Installed capacity of Renewable Power (in MW)')
 # Load data with proper error handling
 try:
     # Try to load the data
-    df = pd.read_csv('renewableenergy/installed_capacity.csv')
+    df = pd.read_csv('installed_capacity.csv')
 
     # Debug: show success message and file info
     st.success("✅ Data loaded successfully!")
 
 except FileNotFoundError:
     st.error("""
-    ❌ File not found! Please make sure:
-    1. The file 'installed_capacity.csv' exists in a 'data' folder
-    2. The file is committed to your GitHub repository
-    3. The folder structure is: your-repo/data/installed_capacity.csv
+    ❌ File not found! Trying to find: installed_capacity.csv
     """)
 
-    # Show debug information
-    st.write("🔍 Debug information:")
+    # Debug information
     st.write("Current working directory:", os.getcwd())
     st.write("Files in current directory:", os.listdir('.'))
 
-    # Check if data folder exists
-    if os.path.exists('data'):
-        st.write("Files in data folder:", os.listdir('data'))
-    else:
-        st.write("'data' folder does not exist")
-
-    # Stop execution if file not found
     st.stop()
 
-except Exception as e:
-    st.error(f"❌ Error loading data: {e}")
-    st.stop()
-
-# Continue with your original code if file loads successfully
+# Continue with your original code
 df = df.fillna(0)
 df_copy = df.copy()
 
