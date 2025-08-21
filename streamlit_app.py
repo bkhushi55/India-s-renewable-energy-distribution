@@ -1,8 +1,9 @@
 import streamlit as st
+import os
 import pandas as pd
 import plotly.express as px
 
-df = pd.read_csv(r'D:\renewableenergy\data\installed_capacity.csv')
+df = pd.read_csv('data/installed_capacity.csv')
 # print(df.head(5))
 
 # # df.info()
