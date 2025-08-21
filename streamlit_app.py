@@ -1,13 +1,8 @@
 import streamlit as st
-import os 
 import pandas as pd
 import plotly.express as px
 
-base_dir = os.path.dirname(os.path.abspath(__file__))
-data_path = os.path.join(
-    base_dir, 'data', 'State-wise (Location based) installed capacity of Renewable Power as on 30.06.2025.csv')
-
-df = pd.read_csv(data_path)
+df = pd.read_csv(r'D:\renewableenergy\data\installed_capacity.csv')
 # print(df.head(5))
 
 # # df.info()
