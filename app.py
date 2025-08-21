@@ -12,7 +12,7 @@ st.subheader('Installed capacity of Renewable Power (in MW)')
 # Load data with proper error handling
 try:
     # Try to load the data
-    df = pd.read_csv('data/installed_capacity.csv')
+    df = pd.read_csv('renewableenergy/installed_capacity.csv')
 
     # Debug: show success message and file info
     st.success("✅ Data loaded successfully!")
@@ -65,3 +65,4 @@ if done_clicked:
                      'value': 'Installed Capacity (MW)', 'variable': 'Renewable Energy Type'},
                  barmode='group')
     st.plotly_chart(fig, use_container_width=True)
+
