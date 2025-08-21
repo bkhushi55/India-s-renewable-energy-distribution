@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 df = pd.read_csv(
-    r'D:\Python\State-wise (Location based) installed capacity of Renewable Power as on 30.06.2025.csv')
+    r'D:\renewableenergy\State-wise (Location based) installed capacity of Renewable Power as on 30.06.2025.csv')
 # print(df.head(5))
 
 # # df.info()
