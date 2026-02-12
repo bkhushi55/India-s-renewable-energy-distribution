@@ -13,10 +13,13 @@ st.subheader('Installed capacity of Renewable Power (in MW)')
 # Load data with proper error handling
 try:
     # Try to load the data
-    df = pd.read_csv('installed_capacity.csv')
+    df = pd.read_csv('installed capacity as on 30.01.2026.csv')
+    df['Total Capacity'] = pd.to_numeric(df['Total Capacity'], errors='coerce')
+
+    df = df.fillna(0)
     indian_states = json.load(open('India.json', 'r', encoding='utf-8'))
 
-    # Debug: show success message and file info
+    # Debug: show success message
     st.success("Select the state(s) of your interest")
 
 except FileNotFoundError:
@@ -46,6 +49,9 @@ for feature in indian_states['features']:
 # Removing row with index 38 and 39 from the df
 
 df_filtered_map = df.copy().drop([36, 37])
+df_filtered_map['Total Capacity'] = pd.to_numeric(
+    df_filtered_map['Total Capacity'], errors='coerce'
+)
 
 
 state_mapping = {'Andhra Pradesh': 'Andhra Pradesh', 'Arunachal Pradesh': 'Arunachal Pradesh',
@@ -113,14 +119,23 @@ done_clicked = st.button('Done')
 filtered_df = df_copy[df_copy['State/Uts'].isin(selected_states)]
 
 if done_clicked:
-    st.write('Data as on 30.06.2025')
+    st.write('Data as on 30.01.2026')
     st.dataframe(filtered_df)
 
     # Plotting the data
-    fig = px.bar(filtered_df, x='State/Uts', y=filtered_df.columns[1:],
-                 title='Installed Capacity of Renewable Power',
-                 labels={
-                     'value': 'Installed Capacity (MW)', 'variable': 'Renewable Energy Type'},
-                 barmode='group')
-    st.plotly_chart(fig, use_container_width=True)
+
+numeric_columns = filtered_df.select_dtypes(include='number').columns
+
+fig = px.bar(
+    filtered_df,
+    x='State/Uts',
+    y=numeric_columns,
+    title='Installed Capacity of Renewable Power',
+    labels={
+        'value': 'Installed Capacity (MW)',
+        'variable': 'Renewable Energy Type'
+    },
+    barmode='group'
+)
+st.plotly_chart(fig, use_container_width=True)
 
